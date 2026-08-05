@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+function kirahInit() {
 
   /* Sticky header shrink/blur on scroll */
   var header = document.querySelector('.site-header');
@@ -100,4 +100,53 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-});
+  /* Request a Demo modal */
+  var demoModalEl = document.getElementById('demoModal');
+  if (demoModalEl) {
+    var demoForm = document.getElementById('demoForm');
+    var demoSuccess = demoModalEl.querySelector('.demo-modal-success');
+    var demoProductSelect = document.getElementById('demoProductSelect');
+
+    demoModalEl.addEventListener('show.bs.modal', function (e) {
+      var trigger = e.relatedTarget;
+      var product = trigger && trigger.getAttribute('data-product');
+      if (demoProductSelect) demoProductSelect.value = product || '';
+    });
+
+    demoModalEl.addEventListener('hidden.bs.modal', function () {
+      demoForm.reset();
+      demoForm.classList.remove('d-none');
+      demoSuccess.classList.add('d-none');
+    });
+
+    demoForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      demoForm.classList.add('d-none');
+      demoSuccess.classList.remove('d-none');
+    });
+  }
+
+  /* Contact page form (static site — no backend, simulate success) */
+  var contactForm = document.querySelector('.contact-card-k form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = contactForm.querySelector('button[type="submit"]');
+      var original = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = 'Message Sent <i class="fa-solid fa-check"></i>';
+      setTimeout(function () {
+        contactForm.reset();
+        btn.disabled = false;
+        btn.innerHTML = original;
+      }, 2500);
+    });
+  }
+
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', kirahInit);
+} else {
+  kirahInit();
+}

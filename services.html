@@ -31,7 +31,7 @@
           <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
         </ul>
-        <a href="contact.html" class="btn-k btn-accent-k btn-sm-k mt-2 mt-lg-0 ms-lg-3">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+        <button type="button" class="btn-k btn-accent-k btn-sm-k mt-2 mt-lg-0 ms-lg-3" data-bs-toggle="modal" data-bs-target="#demoModal">Get Started <i class="fa-solid fa-arrow-right"></i></button>
       </div>
     </nav>
   </div>
@@ -101,7 +101,7 @@
           </div>
         </div>
         <div class="d-flex flex-wrap gap-3 mt-4 reveal reveal-delay-3">
-          <a href="contact.html" class="btn-k btn-primary-k">Request a Demo <i class="fa-solid fa-arrow-right"></i></a>
+          <button type="button" class="btn-k btn-primary-k" data-bs-toggle="modal" data-bs-target="#demoModal" data-product="BenchMark">Request a Demo <i class="fa-solid fa-arrow-right"></i></button>
           <a href="pricing.html" class="btn-k btn-outline-dark-k">View Pricing <i class="fa-solid fa-chevron-right"></i></a>
         </div>
       </div>
@@ -166,7 +166,7 @@
           </div>
         </div>
         <div class="d-flex flex-wrap gap-3 mt-4 reveal reveal-delay-3">
-          <a href="contact.html" class="btn-k btn-primary-k">Request a Demo <i class="fa-solid fa-arrow-right"></i></a>
+          <button type="button" class="btn-k btn-primary-k" data-bs-toggle="modal" data-bs-target="#demoModal" data-product="Room2Service">Request a Demo <i class="fa-solid fa-arrow-right"></i></button>
           <a href="pricing.html" class="btn-k btn-outline-dark-k">View Pricing <i class="fa-solid fa-chevron-right"></i></a>
         </div>
       </div>
@@ -215,7 +215,7 @@
           </div>
         </div>
         <div class="d-flex flex-wrap gap-3 mt-4 reveal reveal-delay-3">
-          <a href="contact.html" class="btn-k btn-primary-k">Request a Demo <i class="fa-solid fa-arrow-right"></i></a>
+          <button type="button" class="btn-k btn-primary-k" data-bs-toggle="modal" data-bs-target="#demoModal" data-product="DocApp">Request a Demo <i class="fa-solid fa-arrow-right"></i></button>
           <a href="pricing.html" class="btn-k btn-outline-dark-k">View Pricing <i class="fa-solid fa-chevron-right"></i></a>
         </div>
       </div>
@@ -238,7 +238,7 @@
       <div class="cta-inner">
         <h2>Not Sure Which Product Fits?</h2>
         <p class="mb-4 mx-auto" style="max-width:520px;opacity:.9;">Tell us about your business and we'll point you to the right platform — or combine them.</p>
-        <a href="contact.html" class="btn-k btn-accent-k">Talk to Our Team <i class="fa-solid fa-arrow-right"></i></a>
+        <button type="button" class="btn-k btn-accent-k" data-bs-toggle="modal" data-bs-target="#demoModal">Talk to Our Team <i class="fa-solid fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
@@ -289,7 +289,59 @@
 
 <button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
+<!-- ===================== REQUEST A DEMO MODAL ===================== -->
+<div class="modal fade" id="demoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content demo-modal-content">
+      <button type="button" class="btn-close demo-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-body">
+        <div class="demo-modal-form-wrap">
+          <form id="demoForm">
+            <span class="eyebrow"><i class="fa-solid fa-bolt"></i> REQUEST A DEMO</span>
+            <h3>See Kirah in Action</h3>
+            <p class="demo-modal-sub">Tell us a bit about your team and we'll set up a personalized walkthrough.</p>
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label-k">Full name *</label>
+                <input type="text" class="form-control-k" required placeholder="Your full name">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label-k">Work email *</label>
+                <input type="email" class="form-control-k" required placeholder="you@company.com">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label-k">Company / Organization</label>
+                <input type="text" class="form-control-k" placeholder="Your organization">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label-k">Phone</label>
+                <input type="tel" class="form-control-k" placeholder="+1 (800) 000-0000">
+              </div>
+              <div class="col-12">
+                <label class="form-label-k">Which product are you interested in?</label>
+                <select class="form-control-k" id="demoProductSelect">
+                  <option value="">Not sure yet &mdash; help me choose</option>
+                  <option value="BenchMark">BenchMark &mdash; Legal &amp; Court Case Management</option>
+                  <option value="Room2Service">Room2Service &mdash; Hotel POS &amp; PMS</option>
+                  <option value="DocApp">DocApp &mdash; Clinic &amp; Reception Suite</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn-k btn-accent-k btn-block-k mt-4">Request My Demo <i class="fa-solid fa-paper-plane"></i></button>
+          </form>
+          <div class="demo-modal-success d-none">
+            <div class="demo-success-icon"><i class="fa-solid fa-check"></i></div>
+            <h4>Request Received!</h4>
+            <p>Thanks &mdash; our team will reach out within one business day to schedule your walkthrough.</p>
+            <button type="button" class="btn-k btn-outline-dark-k" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/script.js"></script>
+<script src="js/script.js?v=2"></script>
 </body>
 </html>
