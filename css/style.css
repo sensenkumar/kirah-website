@@ -218,6 +218,16 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-accent-k:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(34,211,238,.4); color: var(--dark); }
 
+/* Per-product CTA — tinted with the section's own accent (--bench/--r2s/--doc)
+   via .accent-bench/.accent-r2s/.accent-doc, same tokens the device-showcase
+   and feature tiles already use. */
+.btn-product-k {
+  background: linear-gradient(135deg, var(--card-accent, var(--primary)), color-mix(in srgb, var(--card-accent, var(--primary)) 65%, black));
+  color: var(--white);
+  box-shadow: 0 10px 25px color-mix(in srgb, var(--card-accent, var(--primary)) 35%, transparent);
+}
+.btn-product-k:hover { transform: translateY(-3px); box-shadow: 0 16px 34px color-mix(in srgb, var(--card-accent, var(--primary)) 45%, transparent); color: var(--white); }
+
 .btn-outline-k {
   background: transparent;
   border: 1.5px solid rgba(255,255,255,.35);
@@ -379,6 +389,129 @@ a { text-decoration: none; color: inherit; }
 .hero-chip.c3 { bottom: 6%; left: 8%; color: var(--doc); animation-delay: 1.8s; }
 .hero-chip .sub { color: var(--gray); font-weight: 500; font-size: .72rem; }
 
+/* ---------- Product device showcase (multi-device mockup) ---------- */
+/* Each product section swaps the plain floating-chip visual for this —
+   a monitor + laptop + tablet + phone composition, each "screen" a pure
+   CSS mock dashboard (no image assets) themed via --mock-accent so the
+   same markup pattern works for BenchMark/Room2Service/DocApp alike. */
+.device-showcase { position: relative; height: 460px; }
+
+.device-showcase .device { position: absolute; filter: drop-shadow(0 18px 34px rgba(16,19,43,.16)); }
+
+.device-frame { background: #1c1e26; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.device-screen { overflow: hidden; background: #0f1117; }
+
+.device-tablet { right: 2%; top: 8%; width: 32%; max-width: 175px; z-index: 1; }
+.device-tablet .device-frame { border-radius: 12px; padding: 8px; }
+.device-tablet .device-screen { border-radius: 4px; aspect-ratio: 4/3; }
+
+.device-monitor { left: 50%; top: 0; width: 76%; max-width: 400px; transform: translateX(-50%); z-index: 2; }
+.device-monitor .device-frame { border-radius: 14px; padding: 10px 10px 16px; }
+.device-monitor .device-screen { border-radius: 6px; aspect-ratio: 16/10; }
+.device-monitor .device-stand { width: 64px; height: 30px; margin: 0 auto; background: linear-gradient(180deg,#2b2e3a,#1c1e26); clip-path: polygon(32% 0, 68% 0, 100% 100%, 0% 100%); }
+.device-monitor .device-base { width: 140px; height: 9px; margin: 4px auto 0; background: #1c1e26; border-radius: 6px; }
+
+.device-laptop { left: 0; bottom: 0; width: 44%; max-width: 250px; z-index: 3; }
+.device-laptop .device-frame { border-radius: 9px 9px 2px 2px; padding: 7px 7px 0; }
+.device-laptop .device-screen { border-radius: 3px; aspect-ratio: 16/10.4; }
+.device-laptop .device-base { height: 11px; background: linear-gradient(180deg,#eef0fb,#c9cee6); clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%); border-radius: 0 0 5px 5px; }
+
+.device-phone { right: 0; bottom: 2%; width: 19%; max-width: 100px; z-index: 4; }
+.device-phone .device-frame { border-radius: 20px; padding: 6px; }
+.device-phone .device-screen { border-radius: 14px; aspect-ratio: 9/18; }
+
+/* ---- mock UI rendered inside every screen ---- */
+.mock-ui { height: 100%; width: 100%; display: flex; flex-direction: column; font-family: var(--font-body); }
+.mock-topbar { display: flex; align-items: center; gap: 4px; padding: 6px 8px; background: #161822; flex-shrink: 0; }
+.mock-dot { width: 5px; height: 5px; border-radius: 50%; background: #3a3d4a; }
+.mock-title { margin-left: auto; color: #6b7280; font-size: .5rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.mock-body { flex: 1; display: flex; min-height: 0; }
+.mock-sidebar { width: 24%; background: #12141c; display: flex; flex-direction: column; gap: 6px; padding: 8px 6px; flex-shrink: 0; }
+.mock-nav-item { display: block; height: 6px; border-radius: 3px; background: #232634; }
+.mock-nav-item.active { background: var(--mock-accent, var(--primary)); }
+.mock-main { flex: 1; padding: 8px; display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.mock-stats { display: flex; gap: 6px; }
+.mock-stat { flex: 1; background: #161822; border-radius: 5px; padding: 6px 7px; border: 1px solid #232634; min-width: 0; }
+.mock-stat b { display: block; color: #fff; font-size: .64rem; font-family: var(--font-head); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mock-stat span { color: #6b7280; font-size: .4rem; }
+.mock-chart { flex: 1; display: flex; align-items: flex-end; gap: 3px; background: #161822; border-radius: 5px; padding: 6px; border: 1px solid #232634; min-height: 28px; }
+.mock-chart span { flex: 1; background: var(--mock-accent, var(--primary)); border-radius: 2px 2px 0 0; opacity: .85; }
+
+.mock-report-rows { flex: 1; padding: 9px; display: flex; flex-direction: column; justify-content: space-evenly; }
+.mock-report-row { display: flex; align-items: center; gap: 6px; }
+.mock-report-row span { width: 24%; height: 6px; border-radius: 3px; background: #232634; flex-shrink: 0; }
+.mock-report-row i { flex: 1; height: 6px; border-radius: 3px; background: var(--mock-accent, var(--primary)); opacity: .75; }
+
+.mock-list { flex: 1; padding: 9px; display: flex; flex-direction: column; justify-content: space-evenly; }
+.mock-list-row { display: flex; align-items: center; gap: 6px; }
+.mock-avatar { width: 12px; height: 12px; border-radius: 50%; background: var(--mock-accent, var(--primary)); opacity: .85; flex-shrink: 0; }
+.mock-list-row i { flex: 1; height: 5px; border-radius: 3px; background: #232634; }
+
+@media (max-width: 991.98px) {
+  .device-showcase { height: 360px; }
+}
+@media (max-width: 767.98px) {
+  .device-showcase { height: 300px; }
+  .device-tablet { display: none; }
+}
+@media (max-width: 575.98px) {
+  .device-showcase { height: 260px; }
+  .device-laptop { width: 52%; }
+  .device-phone { width: 24%; }
+}
+
+/* Floating stat badges layered over the device-showcase — same headline
+   numbers already shown inside the monitor mockup, called out again as
+   eye-catching cards with a continuous shake loop (staggered per badge
+   so all three don't wobble in unison). */
+.stat-float {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  background: var(--white);
+  border-radius: .9rem;
+  padding: .65rem .9rem;
+  box-shadow: var(--shadow-md);
+  animation: statFloatShake 3.6s ease-in-out infinite;
+}
+.stat-float-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--card-accent, var(--primary));
+  color: var(--white);
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+.stat-float b { display: block; font-family: var(--font-head); font-size: .92rem; color: var(--ink); line-height: 1.15; white-space: nowrap; }
+.stat-float span { font-size: .72rem; color: var(--gray); white-space: nowrap; }
+
+.stat-float.sf1 { top: 2%; left: 2%; animation-delay: 0s; }
+.stat-float.sf2 { top: 40%; right: -3%; animation-delay: .7s; }
+.stat-float.sf3 { bottom: 4%; left: -2%; animation-delay: 1.4s; }
+
+@keyframes statFloatShake {
+  0%, 100% { transform: translate(0,0) rotate(0deg); }
+  20% { transform: translate(-3px,-2px) rotate(-2deg); }
+  40% { transform: translate(3px,1px) rotate(2deg); }
+  60% { transform: translate(-2px,2px) rotate(-1deg); }
+  80% { transform: translate(2px,-1px) rotate(1deg); }
+}
+
+@media (max-width: 991.98px) {
+  .stat-float { padding: .5rem .75rem; gap: .5rem; }
+  .stat-float-icon { width: 28px; height: 28px; font-size: .72rem; }
+  .stat-float b { font-size: .78rem; }
+  .stat-float span { font-size: .62rem; }
+}
+@media (max-width: 575.98px) {
+  .stat-float.sf3 { display: none; }
+}
+
 /* ---------- Scrolling marquee banner ---------- */
 .marquee-wrap {
   background: var(--dark-2);
@@ -473,6 +606,70 @@ a { text-decoration: none; color: inherit; }
 .accent-r2s { --card-accent: var(--r2s); }
 .accent-doc { --card-accent: var(--doc); }
 
+/* ---------- Capability compare grid (checkerboard) ---------- */
+/* Full-bleed on purpose — the heading stays inside .container for
+   readable line length, but the grid itself spans the viewport (minus
+   .compare-grid-wrap's own gutter) rather than the ~1140px container. */
+.compare-grid-wrap {
+  padding: 0 3rem;
+}
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.25rem;
+}
+.compare-card {
+  border-radius: 1.25rem;
+  padding: 2rem 1.3rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .8rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.compare-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.compare-icon {
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.55rem;
+  color: var(--card-accent, var(--primary));
+}
+.compare-card h5 {
+  font-family: var(--font-head);
+  font-size: .96rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.compare-card p {
+  font-size: .82rem;
+  color: var(--gray);
+  margin: 0;
+  line-height: 1.5;
+}
+.compare-card--dark {
+  background: var(--card-accent, var(--primary));
+  border-color: transparent;
+}
+.compare-card--dark .compare-icon { color: var(--white); }
+.compare-card--dark h5 { color: var(--white); }
+.compare-card--dark p { color: rgba(255,255,255,.78); }
+
+@media (max-width: 1199.98px) {
+  .compare-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 767.98px) {
+  .compare-grid-wrap { padding: 0 1.5rem; }
+  .compare-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .compare-grid { grid-template-columns: 1fr; }
+  .compare-card { padding: 1.8rem 1.3rem; }
+}
+
 /* ---------- Feature / value tiles ---------- */
 .feature-tile {
   background: var(--light);
@@ -537,6 +734,36 @@ a { text-decoration: none; color: inherit; }
 }
 .testimonial-author .name { font-weight: 700; font-size: .88rem; }
 .testimonial-author .role { font-size: .76rem; color: var(--gray); }
+
+/* Auto-playing carousel (Bootstrap's own — already loaded on every page) —
+   each .carousel-item holds a row of 3 cards, so it advances a whole group
+   at a time instead of one testimonial at a time. Dots are a custom class
+   rather than Bootstrap's `.carousel-indicators` purely for styling: the
+   JS still finds and drives them via their data-bs-slide-to attributes
+   regardless of class name. */
+.testimonial-carousel { padding-bottom: .5rem; }
+.testimonial-carousel .carousel-item { padding: .3rem .3rem 1rem; }
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  margin-top: 1.6rem;
+}
+.carousel-dots button {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: var(--border);
+  cursor: pointer;
+  transition: background .3s ease, transform .3s ease;
+}
+.carousel-dots button.active {
+  background: var(--primary-2);
+  transform: scale(1.3);
+}
 
 /* ---------- CTA band ---------- */
 .cta-band {
